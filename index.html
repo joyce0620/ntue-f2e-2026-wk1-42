@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>MONO / Daily Uniform</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+	<style>
+		:root {
+			--ink: #171717;
+			--paper: #f4f1eb;
+			--line: #d9d4ca;
+			--muted: #77736d;
+			--accent: #e7644f;
+			--yellow: #f0c94f;
+			--blue: #b8d6d5;
+			--serif: Georgia, "Times New Roman", serif;
+		}
+
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			margin: 0;
+			color: var(--ink);
+			background: var(--paper);
+			font-family: "Noto Sans TC", sans-serif;
+		}
+		a { color: inherit; text-decoration: none; }
+		button { font: inherit; }
+		img { display: block; width: 100%; object-fit: cover; }
+
+		.ticker {
+			height: 34px;
+			overflow: hidden;
+			color: #fff;
+			background: var(--ink);
+			font-family: "DM Mono", monospace;
+			font-size: 11px;
+			letter-spacing: .08em;
+			white-space: nowrap;
+		}
+		.ticker-track {
+			display: flex;
+			width: max-content;
+			align-items: center;
+			height: 100%;
+			animation: ticker 24s linear infinite;
+		}
+		.ticker span { padding: 0 32px; }
+		.ticker b { color: var(--yellow); font-weight: 400; }
+
+		header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			max-width: 1440px;
+			margin: auto;
+			padding: 27px 5vw 22px;
+			border-bottom: 1px solid var(--line);
+		}
+		.logo {
+			font-family: "DM Mono", monospace;
+			font-size: 20px;
+			font-weight: 500;
+			letter-spacing: -.08em;
+		}
+		.logo em { color: var(--accent); font-style: normal; }
+		nav { display: flex; gap: 30px; margin-left: 6vw; }
+		nav a, .header-link {
+			position: relative;
+			font-size: 13px;
+			font-weight: 500;
+		}
+		nav a:first-child::after {
+			position: absolute;
+			right: 0; bottom: -9px; left: 0;
+			height: 2px;
+			background: var(--accent);
+			content: "";
+		}
+		.header-tools { display: flex; align-items: center; gap: 18px; }
+		.header-link { color: var(--muted); }
+		.bag {
+			display: inline-flex;
+			min-width: 31px;
+			height: 31px;
+			align-items: center;
+			justify-content: center;
+			border: 1px solid var(--ink);
+			border-radius: 50%;
+			font-family: "DM Mono", monospace;
+			font-size: 11px;
+		}
+
+		main { max-width: 1440px; margin: auto; }
+		.hero {
+			display: grid;
+			grid-template-columns: 1fr 1.15fr;
+			min-height: 610px;
+			border-bottom: 1px solid var(--line);
+		}
+		.hero-copy {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: clamp(45px, 7vw, 96px) 5vw 42px;
+		}
+		.eyebrow {
+			color: var(--muted);
+			font-family: "DM Mono", monospace;
+			font-size: 11px;
+			letter-spacing: .11em;
+			text-transform: uppercase;
+		}
+		h1 {
+			max-width: 560px;
+			margin: 35px 0 22px;
+			font-size: clamp(48px, 6.3vw, 94px);
+			font-weight: 900;
+			letter-spacing: -.075em;
+			line-height: .93;
+		}
+		h1 span { color: var(--accent); font-family: var(--serif); font-weight: 400; }
+		.hero-copy p {
+			max-width: 320px;
+			margin: 0;
+			color: var(--muted);
+			font-size: 14px;
+			line-height: 1.9;
+		}
+		.hero-bottom { display: flex; align-items: center; justify-content: space-between; }
+		.button {
+			display: inline-flex;
+			align-items: center;
+			gap: 26px;
+			padding: 13px 17px;
+			border: 1px solid var(--ink);
+			font-size: 12px;
+			transition: .25s ease;
+		}
+		.button:hover { color: #fff; background: var(--ink); }
+		.button strong { font-size: 17px; font-weight: 400; }
+		.hero-note { color: var(--muted); font-family: "DM Mono", monospace; font-size: 10px; }
+		.hero-image { position: relative; overflow: hidden; }
+		.hero-image img { height: 100%; min-height: 610px; filter: saturate(.78); }
+		.image-tag {
+			position: absolute;
+			right: 24px; bottom: 23px;
+			padding: 9px 12px;
+			background: var(--yellow);
+			font-family: "DM Mono", monospace;
+			font-size: 10px;
+			transform: rotate(-4deg);
+		}
+
+		.section { padding: 70px 5vw; border-bottom: 1px solid var(--line); }
+		.section-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 30px; }
+		h2 { margin: 9px 0 0; font-size: clamp(28px, 3.2vw, 46px); letter-spacing: -.06em; line-height: 1; }
+		.section-heading a { border-bottom: 1px solid var(--ink); font-family: "DM Mono", monospace; font-size: 10px; }
+		.campaigns {
+			display: flex;
+			gap: 14px;
+			overflow-x: auto;
+			margin-right: -5vw;
+			padding-right: 5vw;
+			scrollbar-width: thin;
+			scrollbar-color: var(--ink) transparent;
+		}
+		.campaign { position: relative; flex: 0 0 min(390px, 33vw); min-width: 280px; overflow: hidden; }
+		.campaign img { aspect-ratio: 1.46; filter: saturate(.8); transition: transform .5s ease; }
+		.campaign:hover img { transform: scale(1.04); }
+		.campaign-copy { position: absolute; right: 20px; bottom: 17px; left: 20px; color: #fff; }
+		.campaign-copy small { font-family: "DM Mono", monospace; font-size: 10px; }
+		.campaign-copy h3 { margin: 6px 0 0; font-size: 25px; letter-spacing: -.05em; }
+		.campaign-copy h3 span { font-family: var(--serif); font-weight: 400; }
+		.campaign:first-child .campaign-copy { color: var(--ink); }
+		.campaign:first-child .campaign-copy::before { background: var(--yellow); }
+		.campaign-copy::before { position: absolute; z-index: -1; right: -20px; bottom: -17px; left: -20px; height: 82px; background: rgba(0,0,0,.38); content: ""; }
+
+		.category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+		.category { position: relative; min-height: 260px; padding: 20px; overflow: hidden; }
+		.category:nth-child(1) { background: var(--blue); }
+		.category:nth-child(2) { background: #dbb5a8; }
+		.category:nth-child(3) { background: #d7d1bf; }
+		.category:nth-child(4) { background: var(--yellow); }
+		.category h3 { position: relative; z-index: 1; margin: 0; font-size: 22px; letter-spacing: -.06em; }
+		.category p { position: relative; z-index: 1; margin: 6px 0 0; color: rgba(23,23,23,.62); font-family: "DM Mono", monospace; font-size: 10px; }
+		.category img { position: absolute; right: -12%; bottom: -10%; width: 78%; height: 82%; mix-blend-mode: multiply; filter: saturate(.65); transition: transform .45s ease; }
+		.category:hover img { transform: translate(-8px, -8px) rotate(-2deg); }
+		.category:nth-child(even) img { right: -17%; width: 75%; }
+
+		.editorial { display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: center; }
+		.editorial-image { position: relative; }
+		.editorial-image img { aspect-ratio: 1.08; filter: saturate(.75); }
+		.editorial-image::after { position: absolute; z-index: -1; top: 18px; right: -18px; bottom: -18px; left: 18px; border: 1px solid var(--accent); content: ""; }
+		.editorial-copy { max-width: 460px; }
+		.editorial-copy h2 { font-family: var(--serif); font-size: clamp(40px, 5vw, 72px); font-weight: 400; line-height: .92; }
+		.editorial-copy p { margin: 26px 0 30px; color: var(--muted); font-size: 14px; line-height: 2; }
+		.number { color: var(--accent); font-family: "DM Mono", monospace; font-size: 11px; }
+
+		footer { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 30px; padding: 50px 5vw; }
+		footer h3 { margin: 0 0 17px; font-family: "DM Mono", monospace; font-size: 11px; font-weight: 400; text-transform: uppercase; }
+		footer a, footer p { display: block; margin: 0 0 9px; color: var(--muted); font-size: 12px; }
+		.footer-logo { font-size: 33px; font-weight: 900; letter-spacing: -.09em; }
+		.copyright { margin-top: 34px; color: var(--muted); font-family: "DM Mono", monospace; font-size: 10px; }
+		@keyframes ticker { to { transform: translateX(-50%); } }
+		@media (max-width: 760px) {
+			header { padding: 20px 6vw; }
+			nav { position: absolute; top: 93px; right: 6vw; left: 6vw; justify-content: space-between; gap: 0; }
+			nav a { font-size: 12px; }
+			.header-link { display: none; }
+			.hero { display: flex; flex-direction: column; }
+			.hero-copy { min-height: 510px; padding: 65px 6vw 32px; }
+			.hero-image img { min-height: 440px; max-height: 60vh; }
+			.section { padding: 52px 6vw; }
+			.section-heading { align-items: start; flex-direction: column; gap: 19px; }
+			.campaigns { margin-right: -6vw; padding-right: 6vw; }
+			.campaign { flex-basis: 77vw; }
+			.category-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+			.category { min-height: 190px; padding: 14px; }
+			.category h3 { font-size: 17px; }
+			.category img { width: 88%; }
+			.editorial { grid-template-columns: 1fr; gap: 40px; }
+			.editorial-copy { padding-right: 10px; }
+			footer { grid-template-columns: 1fr 1fr; padding: 42px 6vw; }
+			footer > :first-child { grid-column: 1 / -1; }
+		}
+	</style>
+</head>
+<body>
+	<div class="ticker" aria-label="最新活動">
+		<div class="ticker-track"><span><b>DROP 03</b> / AUTUMN OBJECTS 現已上線</span><span>全館滿 NT$3,000 免運</span><span><b>DROP 03</b> / AUTUMN OBJECTS 現已上線</span><span>全館滿 NT$3,000 免運</span></div>
+	</div>
+	<header>
+		<a class="logo" href="#top">MONO<em>/</em>24</a>
+		<nav aria-label="主要分類">
+			<a href="#new">最新上架</a>
+			<a href="#categories">女裝</a>
+			<a href="#categories">男裝</a>
+			<a href="#categories">配件</a>
+			<a href="#story">品牌誌</a>
+		</nav>
+		<div class="header-tools"><a class="header-link" href="#footer">搜尋</a><a class="header-link" href="#footer">登入</a><a class="bag" href="#footer" aria-label="購物袋">0</a></div>
+	</header>
+
+	<main id="top">
+		<section class="hero" id="new">
+			<div class="hero-copy">
+				<div><div class="eyebrow">01 / New season, new rhythm</div><h1>穿上<br /><span>自己的</span><br />節奏。</h1><p>我們挑選能陪你走過日常的服裝。少一點喧鬧，多一點剛剛好的餘韻。</p></div>
+				<div class="hero-bottom"><a class="button" href="#categories">探索本季系列 <strong>↗</strong></a><span class="hero-note">LOOKBOOK<br />2024 / 25</span></div>
+			</div>
+			<div class="hero-image"><img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1400&q=85" alt="穿著棕色外套的模特兒" /><span class="image-tag">THE EVERYDAY EDIT</span></div>
+		</section>
+
+		<section class="section" aria-labelledby="campaign-title">
+			<div class="section-heading"><div><div class="eyebrow">Now happening / 02</div><h2 id="campaign-title">現在，發生著。</h2></div><a href="#categories">VIEW ALL ↗</a></div>
+			<div class="campaigns">
+				<a class="campaign" href="#story"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=900&q=80" alt="秋季服裝陳列" /><div class="campaign-copy"><small>POP-UP / 09.20 — 10.06</small><h3>秋日衣櫥<br /><span>在城市裡，慢慢發生</span></h3></div></a>
+				<a class="campaign" href="#story"><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=80" alt="懸掛的服裝" /><div class="campaign-copy"><small>JOURNAL / ISSUE 08</small><h3>布料的<br /><span>第二種表情</span></h3></div></a>
+				<a class="campaign" href="#story"><img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=900&q=80" alt="城市中的服裝造型" /><div class="campaign-copy"><small>FIELD NOTES / 04</small><h3>城市漫遊<br /><span>一件外套的距離</span></h3></div></a>
+			</div>
+		</section>
+
+		<section class="section" id="categories" aria-labelledby="category-title">
+			<div class="section-heading"><div><div class="eyebrow">Shop by mood / 03</div><h2 id="category-title">從今天的心情開始。</h2></div><a href="#footer">所有分類 ↗</a></div>
+			<div class="category-grid">
+				<a class="category" href="#footer"><h3>上衣</h3><p>TOPS / 48 ITEMS</p><img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=700&q=80" alt="上衣" /></a>
+				<a class="category" href="#footer"><h3>外套</h3><p>OUTERWEAR / 26 ITEMS</p><img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?auto=format&fit=crop&w=700&q=80" alt="外套" /></a>
+				<a class="category" href="#footer"><h3>下身</h3><p>BOTTOMS / 31 ITEMS</p><img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=700&q=80" alt="下身" /></a>
+				<a class="category" href="#footer"><h3>配件</h3><p>OBJECTS / 19 ITEMS</p><img src="https://images.unsplash.com/photo-1523779917675-b6ed3a42a561?auto=format&fit=crop&w=700&q=80" alt="配件" /></a>
+			</div>
+		</section>
+
+		<section class="section editorial" id="story">
+			<div class="editorial-image"><img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=1000&q=85" alt="模特兒穿著簡約服飾" /></div>
+			<div class="editorial-copy"><div class="number">04 / THE MONO JOURNAL</div><h2>不追趕<br />每一種流行。</h2><p>衣服不是答案，是你每天重新提問的方式。我們在材質、比例和使用痕跡裡，尋找不必急著被看見的好設計。</p><a class="button" href="#footer">閱讀品牌誌 <strong>↗</strong></a></div>
+		</section>
+	</main>
+
+	<footer id="footer">
+		<div><div class="footer-logo">MONO<em>/</em>24</div><p class="copyright">© 2024 MONO / DAILY UNIFORM</p></div>
+		<div><h3>Explore</h3><a href="#new">最新上架</a><a href="#categories">系列分類</a><a href="#story">品牌誌</a></div>
+		<div><h3>Service</h3><a href="#footer">配送與退貨</a><a href="#footer">尺寸指南</a><a href="#footer">聯絡我們</a></div>
+		<div><h3>Follow along</h3><a href="#footer">Instagram ↗</a><a href="#footer">LINE 官方帳號 ↗</a><p>台北市大安區<br />每日 12:00 — 20:00</p></div>
+	</footer>
+</body>
+</html>
+ 
